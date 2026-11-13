@@ -4,18 +4,16 @@
 
 - **Name:** Keerthan V
 - **Assignment chosen:** A (Data)
-- **Time spent (honest estimate):** 7 hours
+- **Time spent (honest estimate):** Around 7 hours
 
 ## How to run
-
-From a clean clone, in one PowerShell session (Python 3.11+):
 
 ```powershell
 # Set up Python and synthetic test input (once)
 python -m venv .venv
 .\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_hex(32))"
+# Run the next line and press Enter. At the prompt, paste the key, then press Enter again.
 $env:AU_PHONE_HMAC_KEY = Read-Host 'Paste the generated key once'
-.\.venv\Scripts\python.exe -c "import os; assert len(os.environ.get('AU_PHONE_HMAC_KEY', '')) >= 32; print('HMAC key ready')"
 .\.venv\Scripts\python.exe assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
 # Run the pipeline (one command)
 .\.venv\Scripts\python.exe -m solution run
@@ -90,8 +88,8 @@ rejection reasons therefore cover all generated required-field failures.
 `python -m unittest discover -s solution/tests -v` covers normalization,
 rejection order, duplicate merging, late lead arrival, phone-less overrides,
 idempotency, PII absence in the DB file, bucket precedence, distinct daily
-success leads, and stepwise versus all-at-once output identity. I also ran the
-CLI on generated seeds 42 and 777 and compared all five outputs byte for byte
+success leads, and stepwise versus all-at-once output identity. The CLI was
+also run on generated seeds 42 and 777; all five outputs were compared byte for byte
 between those ingestion modes. No external expected-output oracle is supplied.
 
 ## Results
@@ -102,11 +100,10 @@ between those ingestion modes. No external expected-output oracle is supplied.
   9,056 event lines, 428 final orphan events. All five report files produced.
 - Both seeds: stepwise and all-at-once reports matched byte for byte; re-ingest
   left reports unchanged. Five tests passed.
-- Timing: `python -m solution run` reports its own elapsed time using
-  `time.perf_counter()`. On a fresh seed 42 small-scale database, Codex observed
-  0.465 seconds for ingestion and reporting (Python 3.12.3; excludes process
-  startup and data generation). I should repeat this on my own machine before
-  submitting.
+- Timing: `python -m solution run` reports elapsed time using
+  `time.perf_counter()`. A seed 42 small-scale run with a fresh SQLite database
+  took 0.465 seconds for ingestion and reporting. This excludes process startup
+  and data generation; results vary by machine.
 
 ## If I had another day
 

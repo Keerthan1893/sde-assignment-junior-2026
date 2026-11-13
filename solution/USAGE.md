@@ -19,7 +19,7 @@ From the repository root on Windows:
 python -m venv .venv
 # First run only: generate a key and save the printed value privately.
 .\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_hex(32))"
-# Paste that value once when the following command prompts you.
+# Run the next line and press Enter. At the prompt, paste the key, then press Enter again.
 $env:AU_PHONE_HMAC_KEY = Read-Host 'Enter HMAC key'
 .\.venv\Scripts\python.exe -c "import os; assert len(os.environ.get('AU_PHONE_HMAC_KEY', '')) >= 32; print('HMAC key ready')"
 .\.venv\Scripts\python.exe assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data

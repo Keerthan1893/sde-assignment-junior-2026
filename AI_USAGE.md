@@ -14,8 +14,13 @@ First I started to design the schema by seeing into the implentation plan, writt
 
 ## Where the AI was wrong or unhelpful
 
-I dont't say it was unhelpful but sometimes the code it generated it did not give the answers which was expected but after asking it agin with better prompt it gave better answers.
+I would not say AI was unhelpful, but I could not accept every suggestion
+without checking it. In an early version, the SQLite connections were not
+closed properly, so a Windows test failed while cleaning up a temporary
+database. The code was changed to close the connections, and the tests passed
+after that. When an answer was not what I expected, asking a more specific
+follow-up question helped me get a clearer explanation or fix.
 
 ## How I verified AI-generated code
 
-When I was working in previous company as an Intern there aslos we used AI for coding , but my mentor there also used make us review the code ine by line and understand it and we should tell our mentor how exactly it used to work hence , I am used to it now I'll review the code line by line and undersatnd it before accepting it and if I dont understanf=d any line i'll ask AI to tell me waht exactly that perticualr line of code is for. So here too, I used same style of verifying the code which was written by AI.
+When I was working in previous company as an Intern there aslo we used AI for coding , but my mentor there also used make us review the code ine by line and understand it and we should tell our mentor how exactly it used to work hence , I am used to it now I'll review the code line by line and undersatnd it before accepting it and if I dont understand any line i'll ask AI to tell me waht exactly that perticualr line of code is for. So here too, I used same style of verifying the code which was written by AI.
