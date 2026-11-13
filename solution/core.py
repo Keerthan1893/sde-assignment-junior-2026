@@ -9,6 +9,7 @@ import hmac
 import json
 import os
 import sqlite3
+import time
 from collections import Counter, defaultdict
 from contextlib import closing
 from pathlib import Path
@@ -383,6 +384,7 @@ def main() -> None:
     run_parser.add_argument("--out", type=Path, default=Path("reports"))
     args = parser.parse_args()
     try:
+        started = time.perf_counter() if args.command == "run" else None
         secret = secret_from_env()
         if args.command == "report" and not args.db.is_file():
             raise ValueError(f"Database does not exist: {args.db}")
@@ -392,7 +394,7 @@ def main() -> None:
             if args.command in ("report", "run"):
                 report(db, args.out)
         if args.command == "run":
-            print(f"Reports written to {args.out}")
+            print(f"Reports written to {args.out} in {time.perf_counter() - started:.3f} seconds")
     except (ValueError, OSError, sqlite3.Error) as exc:
         parser.exit(1, f"error: {exc}\n")
 

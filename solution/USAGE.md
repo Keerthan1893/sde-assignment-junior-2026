@@ -39,6 +39,10 @@ the pipeline:
 venv\Scripts\python -m solution run
 ```
 
+The command prints the total time for ingestion and report generation. It
+does not include one-time setup or sample-data generation. Use a fresh `--db`
+path to time ingestion; an existing DB skips files already ingested.
+
 To run its tests separately:
 
 ```powershell

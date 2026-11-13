@@ -32,6 +32,7 @@ safe payload storage and confirmed that all five reports stayed identical.
 
 Codex ran five unit/integration tests and generated seeds 42 and 777. For each
 seed, it compared all five reports after incremental and all-at-once ingestion;
-the files matched byte for byte. It also tested re-ingest idempotency and scanned
+the files matched byte for byte. Codex added CLI elapsed-time output and ran it
+on a fresh small-scale database. It tested re-ingest idempotency and scanned
 a test DB for plaintext name/full-phone bytes. I still need to review the code
 myself before claiming personal verification in the interview.

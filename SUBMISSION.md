@@ -4,7 +4,7 @@
 
 - **Name:** Keerthan V
 - **Assignment chosen:** A (Data)
-- **Time spent (honest estimate):** [Candidate: record your own total time before submitting]
+- **Time spent (honest estimate):** 7 hours
 
 ## How to run
 
@@ -13,14 +13,14 @@ From a clean clone, in one PowerShell session (Python 3.11+):
 ```powershell
 # Set up Python and synthetic test input (once)
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-.\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_hex(32))"
+venv\Scripts\Activate
+venv\Scripts\python -c "import secrets; print(secrets.token_hex(32))"
 $env:AU_PHONE_HMAC_KEY = Read-Host 'Enter HMAC key; paste the generated value once'
-.\.venv\Scripts\python.exe assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
+venv\Scripts\python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
 # Run the pipeline (one command)
-.\.venv\Scripts\python.exe -m solution run
+venv\Scripts\python -m solution run
 # Run tests separately
-.\.venv\Scripts\python.exe -m unittest discover -s solution/tests -v
+venv\Scripts\python -m unittest discover -s solution/tests -v
 ```
 
 Generate a random key once and save it in a password manager; reuse it for
@@ -102,8 +102,11 @@ between those ingestion modes. No external expected-output oracle is supplied.
   9,056 event lines, 428 final orphan events. All five report files produced.
 - Both seeds: stepwise and all-at-once reports matched byte for byte; re-ingest
   left reports unchanged. Five tests passed.
-- Seed 42 stepwise ingest plus report: 0.895 seconds measured locally on
-  Python 3.12.3 (includes process startup; small scale only).
+- Timing: `python -m solution run` reports its own elapsed time using
+  `time.perf_counter()`. On a fresh seed 42 small-scale database, Codex observed
+  0.465 seconds for ingestion and reporting (Python 3.12.3; excludes process
+  startup and data generation). I should repeat this on my own machine before
+  submitting.
 
 ## If I had another day
 
