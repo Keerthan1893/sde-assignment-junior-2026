@@ -1,4 +1,4 @@
-"""SQLite ingestion and deterministic reports for Assignment A."""
+
 
 from __future__ import annotations
 

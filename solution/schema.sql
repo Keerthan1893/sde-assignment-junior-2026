@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS metadata (
     value TEXT NOT NULL
 );
 
--- One row per (workflow, canonical phone). The full phone and name are never stored.
+
 CREATE TABLE IF NOT EXISTS leads (
     workflow_id TEXT NOT NULL,
     phone_token TEXT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS leads (
     PRIMARY KEY (workflow_id, phone_token)
 );
 
--- Append-only interaction ledger. phone_token is null for phone-less overrides.
+
 CREATE TABLE IF NOT EXISTS events (
     event_id TEXT PRIMARY KEY,
     workflow_id TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS events (
 );
 CREATE INDEX IF NOT EXISTS events_call ON events (workflow_id, call_id);
 
--- Rejected lead rows contain only location and reason, never the original row.
+
 CREATE TABLE IF NOT EXISTS rejections (
     source_path TEXT NOT NULL,
     workflow_id TEXT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS rejections (
     PRIMARY KEY (source_path, row_number)
 );
 
--- File receipts make re-ingestion idempotent and hold irreversible counters.
+
 CREATE TABLE IF NOT EXISTS ingested_files (
     source_path TEXT PRIMARY KEY,
     content_sha256 TEXT NOT NULL,

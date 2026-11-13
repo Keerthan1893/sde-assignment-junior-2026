@@ -13,17 +13,17 @@ From a clean clone, in one PowerShell session (Python 3.11+):
 ```powershell
 # Set up Python and synthetic test input (once)
 python -m venv .venv
-venv\Scripts\Activate
-venv\Scripts\python -c "import secrets; print(secrets.token_hex(32))"
-$env:AU_PHONE_HMAC_KEY = Read-Host 'Enter HMAC key; paste the generated value once'
-venv\Scripts\python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
+.\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_hex(32))"
+$env:AU_PHONE_HMAC_KEY = Read-Host 'Paste the generated key once'
+.\.venv\Scripts\python.exe -c "import os; assert len(os.environ.get('AU_PHONE_HMAC_KEY', '')) >= 32; print('HMAC key ready')"
+.\.venv\Scripts\python.exe assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
 # Run the pipeline (one command)
-venv\Scripts\python -m solution run
+.\.venv\Scripts\python.exe -m solution run
 # Run tests separately
-venv\Scripts\python -m unittest discover -s solution/tests -v
+.\.venv\Scripts\python.exe -m unittest discover -s solution/tests -v
 ```
 
-Generate a random key once and save it in a password manager; reuse it for
+Generate a random key once and save it privately outside the repository; reuse it for
 every command against the same DB. If the environment already supplies
 `AU_PHONE_HMAC_KEY`, skip `Read-Host`. `run` ingests both drops and writes all
 five reports using `data/ledger.sqlite` and `reports/`. See `solution/USAGE.md`

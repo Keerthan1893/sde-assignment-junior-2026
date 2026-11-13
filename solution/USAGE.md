@@ -16,13 +16,13 @@ The solution uses only the Python standard library (Python 3.11 or newer).
 From the repository root on Windows:
 
 ```powershell
-python -m venv venv
-venv\Scripts\Activate
+python -m venv .venv
 # First run only: generate a key and save the printed value privately.
-venv\Scripts\python -c "import secrets; print(secrets.token_hex(32))"
+.\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_hex(32))"
 # Paste that value once when the following command prompts you.
 $env:AU_PHONE_HMAC_KEY = Read-Host 'Enter HMAC key'
-python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
+.\.venv\Scripts\python.exe -c "import os; assert len(os.environ.get('AU_PHONE_HMAC_KEY', '')) >= 32; print('HMAC key ready')"
+.\.venv\Scripts\python.exe assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
 ```
 
 The generator creates synthetic input files for the exercise. In normal use,
@@ -36,7 +36,7 @@ Once the input files and environment variable are ready, **one command** runs
 the pipeline:
 
 ```powershell
-venv\Scripts\python -m solution run
+.\.venv\Scripts\python.exe -m solution run
 ```
 
 The command prints the total time for ingestion and report generation. It
@@ -46,7 +46,7 @@ path to time ingestion; an existing DB skips files already ingested.
 To run its tests separately:
 
 ```powershell
-venv\Scripts\python -m unittest discover -s solution/tests -v
+.\.venv\Scripts\python.exe -m unittest discover -s solution/tests -v
 ```
 
 `run` ingests both drops in order and writes all five reports. Its defaults are
@@ -69,12 +69,12 @@ If you already created a database with a different key, use a new `--db` path.
 On Linux or macOS, supply the saved key in the current shell:
 
 ```bash
-python3 -m venv venv
+python3 -m venv .venv
 read -r -s -p 'Paste your saved HMAC key: ' AU_PHONE_HMAC_KEY
 export AU_PHONE_HMAC_KEY
-venv/bin/python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
-venv/bin/python -m solution run
-venv/bin/python -m unittest discover -s solution/tests -v
+.venv/bin/python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
+.venv/bin/python -m solution run
+.venv/bin/python -m unittest discover -s solution/tests -v
 ```
 
 The same key must be used for every run against an existing database. A newly
@@ -83,8 +83,8 @@ generated key requires a fresh database.
 To ingest all drops in one command into a fresh DB:
 
 ```powershell
-venv\Scripts\python -m solution ingest data --db data/all.sqlite
-venv\Scripts\python -m solution report --db data/all.sqlite --out data/all_reports
+.\.venv\Scripts\python.exe -m solution ingest data --db data/all.sqlite
+.\.venv\Scripts\python.exe -m solution report --db data/all.sqlite --out data/all_reports
 ```
 
 Do not regenerate a different seed into the same path and use the old database:

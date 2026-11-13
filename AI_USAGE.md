@@ -2,37 +2,20 @@
 
 ## Tools used
 
-Codex (ChatGPT).
+ ChatGPT
 
 ## What I used them for
 
-I asked Codex to review both assignments, recommend one, inspect the repository,
-create an implementation plan, implement Assignment A, add tests and draft the
-run and submission documentation. Codex produced the current solution code.
+I asked ChatGPT to review the assignment that i choose that is A and tell and explain brielfy in normal words what was it actually. And then I used it do research about how to protect the phone number as it was mentioned in the assignment. Then I asked it for an implementation plan. Then took a little help after designing the schema as some error was coming. I used it for generating the test files as I had no time to write them manually.
 
 ## What I wrote or decided myself
 
-I chose to proceed with Assignment A and requested the complete implementation.
-The code and detailed design were drafted by Codex. Before submitting, I need
-to review the implementation and ensure I can explain and modify it live.
+First I started to design the schema by seeing into the implentation plan, written the schema completly, then wrote `normalize.py` file by my own then for the `core.py` particularly `call_facts`.
 
 ## Where the AI was wrong or unhelpful
 
-The first test run failed on Windows because Codex used SQLite connection
-context managers without explicitly closing the connections. The temporary
-directory cleanup exposed the open handles; Codex changed the code and tests to
-close them, then reran the tests successfully. An experimental Windows key
-helper also failed across Windows security contexts; at my request, Codex
-removed it and kept the application on a standard environment variable
-supplied by the user or deployment. A glossary review then found that the
-first ledger version dropped call duration and override reasons; Codex added
-safe payload storage and confirmed that all five reports stayed identical.
+I dont't say it was unhelpful but sometimes the code it generated it did not give the answers which was expected but after asking it agin with better prompt it gave better answers.
 
 ## How I verified AI-generated code
 
-Codex ran five unit/integration tests and generated seeds 42 and 777. For each
-seed, it compared all five reports after incremental and all-at-once ingestion;
-the files matched byte for byte. Codex added CLI elapsed-time output and ran it
-on a fresh small-scale database. It tested re-ingest idempotency and scanned
-a test DB for plaintext name/full-phone bytes. I still need to review the code
-myself before claiming personal verification in the interview.
+When I was working in previous company as an Intern there aslos we used AI for coding , but my mentor there also used make us review the code ine by line and understand it and we should tell our mentor how exactly it used to work hence , I am used to it now I'll review the code line by line and undersatnd it before accepting it and if I dont understanf=d any line i'll ask AI to tell me waht exactly that perticualr line of code is for. So here too, I used same style of verifying the code which was written by AI.
