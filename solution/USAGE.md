@@ -36,7 +36,7 @@ Once the input files and environment variable are ready, **one command** runs
 the pipeline:
 
 ```powershell
-.venv\Scripts\python -m solution run
+venv\Scripts\python -m solution run
 ```
 
 To run its tests separately:
